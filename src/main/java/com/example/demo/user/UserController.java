@@ -55,6 +55,7 @@ public class UserController {
 
     @GetMapping("/get-all-users")
     public List<User> authenticateUser(){
+
         return userService.getAllUsers();
     }
 

@@ -1,12 +1,19 @@
 package com.example.demo.user;
 
+import com.example.demo.models.Blog;
+import com.example.demo.models.Comment;
+import com.example.demo.models.Hobby;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Users")
-public class User {
+public class User implements Serializable {
 
     @Id
     private String username;
@@ -24,16 +31,35 @@ public class User {
     @Column(nullable = false)
     private String lastName;
 
-    public User(){
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "USER_RELATIONS",
+            joinColumns = @JoinColumn(name = "FOLLOWED_ID"),
+            inverseJoinColumns = @JoinColumn(name = "FOLLOWER_ID"))
+    private Set<User> followers;
 
-    }
-    public User(String username, String password, String email, String firstName, String lastName) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
+    @ManyToMany(mappedBy = "followers", cascade = CascadeType.ALL)
+    private Set<User> following;
+
+
+    @ManyToMany(cascade = CascadeType.REMOVE)
+    @JoinTable(name = "USER_HOBBIES",
+    joinColumns = @JoinColumn(name = "USERNAME"),
+    inverseJoinColumns = @JoinColumn(name = "HOBBY"))
+    private List<Hobby> hobbies;
+
+
+    @OneToMany(mappedBy = "username", cascade = CascadeType.REMOVE)
+    private List<Blog> blogs;
+
+
+    @OneToMany(mappedBy = "commentedBy", cascade = CascadeType.REMOVE)
+    private List<Comment> comments;
+
+     User(){
+
+     }
+
+
 
     public String getUsername() {
         return username;
@@ -55,17 +81,6 @@ public class User {
         return email;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
-    }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -78,11 +93,67 @@ public class User {
         this.firstName = firstName;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+//                ", followers=" + followers +
+//                ", following=" + following +
+                ", hobbies=" + hobbies +
+                ", blogs=" + blogs +
+                ", comments=" + comments +
+                '}';
+    }
+
     public String getLastName() {
         return lastName;
     }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Set<User> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(Set<User> followers) {
+        this.followers = followers;
+    }
+
+    public Set<User> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(Set<User> following) {
+        this.following = following;
+    }
+
+    public List<Hobby> getHobbies() {
+        return hobbies;
+    }
+
+    public void setHobbies(List<Hobby> hobbies) {
+        this.hobbies = hobbies;
+    }
+
+    public List<Blog> getBlogs() {
+        return blogs;
+    }
+
+    public void setBlogs(List<Blog> blogs) {
+        this.blogs = blogs;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

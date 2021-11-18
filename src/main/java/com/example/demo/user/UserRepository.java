@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface UserRepository extends JpaRepository<User,String> {
 
@@ -15,4 +17,7 @@ public interface UserRepository extends JpaRepository<User,String> {
 
     @Query(value = "SELECT COUNT(DISTINCT(EMAIL)) from Users u WHERE u.email = :email", nativeQuery = true)
     public int getEmailCount(String email);
+
+    @Query(value = "SELECT * from Users ", nativeQuery = true)
+    public List<User> getAllUsers();
 }
