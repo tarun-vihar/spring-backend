@@ -12,15 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*")
 public class CommentController {
 
-    @Autowired
-    private final CommentService commentService;
-    @Autowired
-    private  final BlogService blogService;
-    CommentController(CommentService commentService, BlogService blogService){
-        this.commentService = commentService;
-        this.blogService = blogService;
-    }
-
 
 
 

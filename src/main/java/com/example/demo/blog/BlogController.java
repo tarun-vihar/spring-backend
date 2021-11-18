@@ -15,48 +15,6 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class BlogController {
 
-    ResponseEntity responseEntity;
-    @Autowired
-    private final BlogService blogService;
-
-    public BlogController(BlogService blogService){
-        this.blogService = blogService;
-    }
-
-
-
-    @PostMapping("/addBlog")
-    public ResponseEntity insertBlog(@RequestBody  Blog blog){
-        System.out.println(blog);
-        responseEntity = new ResponseEntity(blogService.insertBlog(blog), HttpStatus.OK);
-        return responseEntity;
-    }
-
-    @GetMapping("/get-all-blogs")
-    public List<Blog> getBlogs(){
-
-        return blogService.getAllBlogs();
-    }
-
-    @GetMapping("/get-blog")
-    public ResponseEntity getBlogById(@RequestParam("username") String username){
-         responseEntity = new ResponseEntity(blogService.getBlogsByUsername(username),HttpStatus.OK);
-        return responseEntity;
-    }
-
-    @PutMapping("/edit/{id}")
-    public ResponseEntity updateBlog(@PathVariable(value = "id") int blogId,
-                                     @RequestBody Blog blogDetails){
-        Blog blog = blogService.getBlog(blogId);
-        if(blog != null){
-            blogDetails.setId(blogId);
-            return insertBlog(blogDetails);
-        }else
-            return  null;
-
-
-    }
-
 
 
 
