@@ -1,13 +1,26 @@
 package com.example.demo.models;
 
 import com.example.demo.user.User;
-import jdk.jfr.Enabled;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
 @Table(name = "Comment")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Comment {
 
     @Id
@@ -16,17 +29,17 @@ public class Comment {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "blog_id",nullable = false)
+    @JoinColumn(name = "blog",referencedColumnName = "id",nullable = false)
     private Blog blog;
 
     @ManyToOne
-    @JoinColumn(name = "username", nullable = false)
-    private User commentedBy;
+    @JoinColumn (name = "commented_by",referencedColumnName = "username",nullable = false)
+    private User user;
 
-    @Column
+    @Column(name = "commented_at", nullable = false)
     private Date commentedAt;
 
-    @Column
+
     private String description;
 
     @Column
@@ -35,20 +48,5 @@ public class Comment {
     @Column
     private String sentimentType;
 
-    Comment(){
 
-    }
-
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "id=" + id +
-                ", blog=" + blog +
-                ", commentedBy=" + commentedBy +
-                ", commentedAt=" + commentedAt +
-                ", description='" + description + '\'' +
-                ", updatedAt=" + updatedAt +
-                ", sentimentType='" + sentimentType + '\'' +
-                '}';
-    }
 }

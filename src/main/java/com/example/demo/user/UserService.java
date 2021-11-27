@@ -5,27 +5,14 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 //import org.springframework.secur
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.sql.DataSource;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -47,7 +34,7 @@ public class UserService {
 
     public List<User> getAllUsers(){
 
-        return userRepository.getAllUsers();
+        return userRepository.findAll();
     }
 
 
@@ -109,6 +96,11 @@ public class UserService {
       sr.runScript(reader);
 
 
+    }
+
+    public User getUserByName(String username){
+        Optional<User> user = userRepository.findById(username);
+        return user.orElse(null);
     }
 
 

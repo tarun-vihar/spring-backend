@@ -1,13 +1,18 @@
 package com.example.demo.models;
 
-import com.example.demo.user.User;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "Hobby")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Hobby {
 
     @Id
@@ -17,9 +22,6 @@ public class Hobby {
 
     @Column(nullable = false)
     private String hobbyName;
-
-    @ManyToMany(mappedBy = "hobbies")
-    private List<User> users;
 
     public long getId() {
         return id;
@@ -35,26 +37,5 @@ public class Hobby {
 
     public void setHobbyName(String hobbyName) {
         this.hobbyName = hobbyName;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
-    public  Hobby(){
-
-    }
-
-    @Override
-    public String toString() {
-        return "Hobby{" +
-                "id=" + id +
-                ", hobbyName='" + hobbyName + '\'' +
-                ", users=" + users +
-                '}';
     }
 }
