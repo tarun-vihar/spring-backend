@@ -1,13 +1,9 @@
-package com.example.demo.DataSource;
+package com.example.demo.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.jdbc.DataSourceBuilder;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
-import javax.sql.DataSource;
-import java.awt.*;
 import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
