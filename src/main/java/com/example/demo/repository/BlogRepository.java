@@ -17,4 +17,30 @@ public interface BlogRepository extends JpaRepository<Blog,Long> {
     public int countTodayBlogsByUser(User username);
 
     public List<Blog> findByUser(User username);
+
+    /*
+
+    @Query(value = "WITH CTE AS (\n" +
+            " \tselect blog_id from comment \n" +
+            "\tGROUP BY blog_id\n" +
+            "\tHAVING COUNT(DISTINCT(SENTIMENT)) = 1\n" +
+            "),\n" +
+            "CTE2 AS (\n" +
+            "\tselect DISTINCT(cte.blog_id) from CTE\n" +
+            "\tINNER JOIN COMMENT com\n" +
+            "\tON com.blog_id = cte.blog_id where com.sentiment = 'like'\n" +
+            ") \n" +
+            "select * from blog where blog_id in ( select blog_id from CTE2) and  published_by = :user",
+            nativeQuery = true)
+    public List<Blog> getPositveCommentedBlogs(User user);
+
+
+     */
+
+
+
+    @Query(value = "SELECT * FROM Blog b WHERE " +
+            " b.published_by = :username and blog_id in (select blog_id from comment where sentiment = 'like') ",
+            nativeQuery = true)
+    public List<Blog> someNegativeComments(User username);
 }

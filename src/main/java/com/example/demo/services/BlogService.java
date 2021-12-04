@@ -177,4 +177,12 @@ public class BlogService {
         return  null;
     }
 
+    public List<BlogDTO> findPositveBlogs(String username) {
+        User user= authService.getUserByUserName(username);
+        if(user != null){
+           List<Blog> postiveBlogList = blogRepository.getPositveCommentedBlogs(user);
+           return getBlogResponse(postiveBlogList).getBlogResponse();
+        }
+        return null;
+    }
 }

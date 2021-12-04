@@ -52,6 +52,13 @@ public class BlogController {
         return new ResponseEntity(blogService.getBlogById(blogId), OK);
     }
 
+    @GetMapping("/positive/{username}")
+    public ResponseEntity<List<BlogDTO>>  getAllPostiveBlogs(final @PathVariable String username){
+        return new ResponseEntity(blogService.findPositveBlogs(username), OK);
+    }
+
+
+
 
 
 

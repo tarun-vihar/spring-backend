@@ -5,14 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -34,5 +33,11 @@ public class User {
         @NotEmpty
         private String lastName;
         private Instant created;
+
+        @OneToMany(mappedBy="to")
+        private List<Followers> followers = new ArrayList<>();
+
+        @OneToMany(mappedBy="from")
+        private List<Followers> following = new ArrayList<>();
 
 }
