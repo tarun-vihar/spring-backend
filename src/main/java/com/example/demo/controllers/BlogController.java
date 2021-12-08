@@ -42,14 +42,14 @@ public class BlogController {
         return new ResponseEntity(blogService.deleteBlog(blogId), OK);
     }
 
-    @GetMapping("/user/{username")
+    @GetMapping("/user/{username}")
     public  ResponseEntity<Response> getAllUserBlogs(final  @PathVariable String username){
         return  new ResponseEntity(blogService.getAllBlogsByUserName(username), OK);
     }
 
     @GetMapping("/{blogId}")
     public ResponseEntity<BlogDTO> getBlogDetails(final  @PathVariable long blogId){
-        return new ResponseEntity(blogService.getBlogById(blogId), OK);
+        return new ResponseEntity(blogService.getBlogDetails(blogId), OK);
     }
 
     @GetMapping("/positive/{username}")

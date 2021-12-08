@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
 import java.util.List;
 
 @Data
@@ -19,6 +20,7 @@ public class BlogDTO {
     private String firstName;
     private String[] tagsList;
     private List<CommentDTO> commentList;
+    private Date createdAt;
 
 
 }

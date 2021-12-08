@@ -6,22 +6,28 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @Entity
-@Table(name = "USER_RELATIONS")
+@Table(name = "users_relation")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class  Followers {
+public class Relations {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name="from_user")
-    private User from;
+
 
     @ManyToOne
-    @JoinColumn(name="to_user")
-    private User to;
+    @JoinColumn(name="username", nullable = false)
+    private User username;
+
+    @ManyToOne
+    @JoinColumn(name="follower_id", nullable = false)
+    private User followerId;
+
+    //    @EmbeddedId
+//    private RelationPrimaryKey relationKey;
 
 }

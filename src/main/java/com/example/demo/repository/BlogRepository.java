@@ -18,8 +18,8 @@ public interface BlogRepository extends JpaRepository<Blog,Long> {
 
     public List<Blog> findByUser(User username);
 
-    /*
 
+//  Q1
     @Query(value = "WITH CTE AS (\n" +
             " \tselect blog_id from comment \n" +
             "\tGROUP BY blog_id\n" +
@@ -35,7 +35,7 @@ public interface BlogRepository extends JpaRepository<Blog,Long> {
     public List<Blog> getPositveCommentedBlogs(User user);
 
 
-     */
+
 
 
 

@@ -34,5 +34,15 @@ public class AuthController {
     }
 
 
+    @PostMapping("/add-follwers/{username}")
+    public ResponseEntity<Response> addFollowers(@PathVariable String username,@RequestBody String[] follwers){
+        return  new ResponseEntity(authService.addFollowers(follwers, username),OK);
+    }
+
+    @PostMapping("/add-following/{username}")
+    public ResponseEntity<Response> addFollowing(@PathVariable String username,@RequestBody String[] following){
+        return  new ResponseEntity(authService.addFollowing(following, username),OK);
+    }
+
 
 }

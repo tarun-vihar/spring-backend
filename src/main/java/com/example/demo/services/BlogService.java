@@ -115,6 +115,7 @@ public class BlogService {
         blogDTO.setUserName(blog.getUser().getUsername());
         blogDTO.setFirstName(blog.getUser().getFirstName());
         blogDTO.setBlogName(blog.getBlogName());
+        blogDTO.setCreatedAt(blog.getCreatedAt());
         return blogDTO;
     }
 
@@ -166,8 +167,8 @@ public class BlogService {
     public  Blog   getBlogById(long blogId){
 
         Blog blog = blogRepository.findById(blogId).orElse(null);
-
         return blog;
+
     }
 
     public BlogDTO getBlogResponse(long blogId){
@@ -184,5 +185,13 @@ public class BlogService {
            return getBlogResponse(postiveBlogList).getBlogResponse();
         }
         return null;
+    }
+
+    public BlogDTO getBlogDetails(long blogId) {
+        Blog blog = getBlogById( blogId);
+        if(blog != null)
+            return  mapToBlogDTO(blog);
+        return  null;
+
     }
 }
